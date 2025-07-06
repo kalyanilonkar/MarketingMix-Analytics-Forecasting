@@ -1,0 +1,93 @@
+
+---
+title: "Comprehensive Marketing & Sales Analysis"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+This report performs an extensive analysis on marketing, sales and economic data across various regions. It includes preprocessing, exploratory data analysis, time series forecasting, PCA, and multiple regression models.
+
+# Libraries
+```{r libraries}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(reshape2)
+library(caret)
+library(glmnet)
+library(MASS)
+library(car)
+library(lmtest)
+library(forecast)
+library(ggfortify)
+library(e1071)
+library(corrplot)
+```
+
+# Load Data
+```{r load-data}
+load("CourseWorkData.RData")
+head(data)
+```
+
+# Data Cleaning and Feature Engineering
+```{r feature-engineering}
+colnames(data) <- c("Sales","Price","Ad1","Ad2","No_of_stores","Wage","Time","Product","Region","Month","Year")
+data$Date <- as.Date(paste(data$Year, data$Month, "1", sep = "-"), format = "%Y-%b-%d")
+data$Quarter <- as.numeric(format(data$Date, "%m")) %/% 4 + 1
+data$Season <- factor(ifelse(data$Quarter==1,"Winter", ifelse(data$Quarter==2,"Spring", ifelse(data$Quarter==3,"Summer","Autumn"))))
+
+# Feature engineering
+data <- data %>%
+  mutate(Ad1_sq = Ad1^2, Ad2_sq = Ad2^2, Ad1_Ad2 = Ad1*Ad2, Ad2_Prom = Ad2*No_of_stores,
+         Log_Ad1 = log(Ad1+1), Log_Ad2 = log(Ad2+1), Log_Prom = log(No_of_stores+1), 
+         Log_Sales = log(Sales+1), Ad1_zero_indicator = ifelse(Ad1==0,1,0))
+```
+
+# Correlation Matrix
+```{r correlation-matrix}
+numerical_columns <- names(data)[sapply(data, is.numeric)]
+corr_matrix <- cor(data[,numerical_columns], use="complete.obs")
+corrplot(corr_matrix, method="color", type="upper")
+```
+
+# PCA
+```{r pca-analysis}
+scaled_data <- scale(data[,numerical_columns])
+pca_result <- prcomp(scaled_data, center=TRUE, scale.=TRUE)
+summary(pca_result)
+plot(pca_result, type="l")
+```
+
+# Regression Example (Mexico)
+```{r regression-mexico}
+Mexico_data <- data %>% filter(Region == "Mexico")
+train_index <- 1:floor(0.8 * nrow(Mexico_data))
+train <- Mexico_data[train_index, ]
+test <- Mexico_data[-train_index, ]
+model <- lm(Log_Sales ~ Log_Ad1 + Ad2 + Wage + Log_Prom + Quarter, data=train)
+summary(model)
+pred <- predict(model, newdata=test)
+rmse <- sqrt(mean((test$Log_Sales - pred)^2))
+rmse
+```
+
+# Forecast Example (ARIMA)
+```{r arima-example}
+library(forecast)
+sales_ts <- ts(Mexico_data$Sales, frequency=12)
+train_ts <- window(sales_ts, end=c(4,12))
+fit <- auto.arima(train_ts)
+forecast_values <- forecast(fit, h=12)
+autoplot(forecast_values)
+```
+
+# Conclusion
+This report completed a comprehensive analysis involving PCA, regression and time series forecasting. The same workflow can be applied for Singapore, UK, Spain and USA datasets by filtering on `Region`.
+
