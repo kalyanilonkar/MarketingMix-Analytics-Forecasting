@@ -44,7 +44,7 @@ This repository contains an end-to-end data analytics project analyzing the impa
 ```
  MarketingMix-Analytics-Forecasting/
 ├── analysis.Rmd       # Main RMarkdown file with full analysis
-├── Book2FINALfinal.xlsx # Raw or cleaned data used for analysis
+├── ML-Models comparison metrices.xlsx # Raw or cleaned data used for analysis
 ├── data_output.xlsx   # Outputs or processed data
 ├── README.md          # This file
 └── plots/             # Folder for storing generated plots (optional)
