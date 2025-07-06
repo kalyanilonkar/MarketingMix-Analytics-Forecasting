@@ -1,0 +1,58 @@
+
+# History files
+.Rhistory
+.Rapp.history
+
+# Session Data files
+.RData
+.Ruserdata
+
+# RStudio files
+.Rproj.user/
+
+# Output files from knitr
+*.utf8.md
+*.knit.md
+
+# R Markdown
+*.Rmd
+*.Rmarkdown
+*.nb.html
+
+# Temporary files created by R
+*.Rout
+*.Rout.save
+*.RData
+*.rds
+
+# Compiled code
+*.o
+*.so
+*.dll
+
+# Logs and databases
+*.log
+*.sqlite
+
+# Cache files
+*_cache/
+cache/
+*.tmp
+*.temp
+
+# VS Code settings
+.vscode/
+
+# Mac system files
+.DS_Store
+
+# Environment files
+.env
+
+# Reports
+*.pdf
+*.docx
+*.html
+
+# Other IDE files
+.idea/
