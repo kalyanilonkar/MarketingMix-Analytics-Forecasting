@@ -1,5 +1,4 @@
 
-#  MarketingMix-Analytics-Forecasting-SALES
 # Marketing Mix Analytics & Sales Forecasting
 
 ![R](https://img.shields.io/badge/R-4.2.0-blue)
@@ -8,6 +7,9 @@
 ![Data](https://img.shields.io/badge/Data-CSV%20%7C%20Excel-brightgreen)
 ![Model](https://img.shields.io/badge/Models-ARIMA%20%7C%20PCA%20%7C%20Regression-orange)
 ![Marketing](https://img.shields.io/badge/Focus-Marketing%20Mix%20Analytics-red)
+
+This repository contains an end-to-end data analytics project analyzing the impact of marketing activities (TV ads, online banners, and in-store promotions) on chocolate sales across multiple countries. It includes extensive data preprocessing, exploratory data analysis, feature engineering, time series forecasting, PCA, multiple regression models, and marketing effectiveness evaluation.
+
 
 ## 🔍 Topics
 - marketing-analytics
@@ -24,7 +26,6 @@
 - arima
 - stepwise-regression
 
-This repository contains an end-to-end data analytics project analyzing the impact of marketing activities (TV ads, online banners, and in-store promotions) on chocolate sales across multiple countries. It includes extensive data preprocessing, exploratory data analysis, feature engineering, time series forecasting, PCA, multiple regression models, and marketing effectiveness evaluation.
 
 ---
 
